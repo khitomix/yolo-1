@@ -3,6 +3,9 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND nonineractive
 
 RUN apt update && apt upgrade -y
+RUN apt install software-properties-common -y
+RUN add-apt-repository ppa:jonathonf/ffmpeg-4
+RUN apt-get update && apt-get upgrade -y
 
 RUN apt install python3 -y
 RUN apt install python3-pip -y
@@ -18,7 +21,9 @@ RUN apt install libvpx-dev -y
 RUN apt install libffi-dev -y
 RUN apt install libssl-dev -y
 RUN apt install libopencv-dev -y
-
+RUN apt install libavdevice-dev -y
+RUN apt install libavfilter-dev -y
+RUN apt install pkg-config -y
 #
 # -- aiortc --
 #
