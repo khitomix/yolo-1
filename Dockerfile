@@ -47,18 +47,18 @@ WORKDIR /root/work/
 RUN git clone https://github.com/pjreddie/darknet.git
 WORKDIR /root/work/darknet
 RUN make
-RUN wget https://github.com/dcs-aidojo/yolo/raw/master/yolov3.weights
-RUN wget https://github.com/dcs-aidojo/yolo/raw/master/yolov3-tiny.weights
+RUN wget https://github.com/dcs-aidojo/yolo/releases/download/weights_v3/yolov3.weights
+RUN wget https://github.com/dcs-aidojo/yolo/releases/download/weights_v3/yolov3-tiny.weights
 #RUN wget https://pjreddie.com/media/files/yolov3.weights
 #RUN wget https://pjreddie.com/media/files/yolov3-tiny.weights
 
 RUN ln -s /root/work/darknet/libdarknet.so /usr/lib/libdarknet.so
 
+RUN git clone https://github.com/dcs-aidojo/yolo.git
+
 #-- copy darknet sample ---
 WORKDIR /root/work/
-RUN git clone https://github.com/mganeko/python3_yolov3.git
-RUN cp /root/work/python3_yolov3/darknet-tiny-label.py /root/work/darknet/python/
-
+RUN cp /root/work/yolo/darknet-tiny-label.py /root/work/darknet/python/
 
 # --- link ---
 RUN ln -s /root/work/darknet/cfg /root/work/aiortc/examples/server/
@@ -67,9 +67,8 @@ RUN ln -s /root/work/darknet/yolov3-tiny.weights /root/work/aiortc/examples/serv
 
 #-- copy ---
 WORKDIR /root/work/
-RUN git clone https://github.com/mganeko/aiortc_yolov3.git
-RUN cp /root/work/aiortc_yolov3/server_yolo.py /root/work/aiortc/examples/server/
-RUN cp /root/work/aiortc_yolov3/index.html /root/work/aiortc/examples/server/
+RUN cp /root/work/yolo/server_yolo.py /root/work/aiortc/examples/server/
+RUN cp /root/work/yolo/index.html /root/work/aiortc/examples/server/
 #COPY server_yolo.py /root/work/aiortc/examples/server/
 #COPY index.html /root/work/aiortc/examples/server/
 
@@ -85,21 +84,19 @@ CMD [ "python3", "server_yolo.py" ]
 # ----
 
 # -- to build --
-# docker build -t mganeko/aiortc-yolov3 -f Dockerfile .
-# 
-# docker build --no-cache=true -t mganeko/aiortc-yolov3 -f Dockerfile .
+# docker build -t dcsaidojo/yolo -f Dockerfile .
 
 # -- bash --
-# docker run -it mganeko/aiortc-yolov3 bash
+# docker run -it dcsaidojo/yolo3 bash
 
 # -- run --
-# docker run -d -p 8001:8080 --name aio mganeko/aiortc-yolov3
+# docker run -d -p 8001:8080 --name yolo dcsaidojo/yolo
 
 # -- stop & remove --
-# docker stop aio
+# docker stop yolo
 
 # -- remove ---
-# docker rm aio
+# docker rm yolo
 
 # -- remove stoped container ---
 # docker rm $(docker ps -q -f status=exited)
