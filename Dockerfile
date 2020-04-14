@@ -54,10 +54,10 @@ RUN wget https://github.com/dcs-aidojo/yolo/releases/download/weights_v3/yolov3-
 
 RUN ln -s /root/work/darknet/libdarknet.so /usr/lib/libdarknet.so
 
-RUN git clone https://github.com/dcs-aidojo/yolo.git
 
 #-- copy darknet sample ---
 WORKDIR /root/work/
+RUN git clone https://github.com/dcs-aidojo/yolo.git
 RUN cp /root/work/yolo/darknet-tiny-label.py /root/work/darknet/python/
 
 # --- link ---
