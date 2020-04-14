@@ -87,7 +87,7 @@ CMD [ "python3", "server_yolo.py" ]
 # docker build -t dcsaidojo/yolo -f Dockerfile .
 
 # -- bash --
-# docker run -it dcsaidojo/yolo3 bash
+# docker run --rm -it dcsaidojo/yolo bash
 
 # -- run --
 # docker run -d -p 8001:8080 --name yolo dcsaidojo/yolo
